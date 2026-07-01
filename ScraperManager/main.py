@@ -400,6 +400,12 @@ class MainWindow(QMainWindow):
         self.file_list.itemDoubleClicked.connect(
             self.open_selected_file
         )
+        self.author_label = QLabel("Author: Telegram: @Alireza_koh1")
+        self.author_label.setStyleSheet("""
+            color: #666;
+            font-size: 10px;
+            padding: 6px;
+        """)
 
     # -----------------------------
 
