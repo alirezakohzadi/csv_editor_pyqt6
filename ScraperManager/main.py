@@ -21,8 +21,10 @@ from PyQt5.QtWidgets import (
     QTextEdit,
     QTextBrowser,
     QDialog,
+    
 )
 
+from PyQt5.QtCore import Qt
 from database import Database
 from config import *
 
@@ -393,11 +395,13 @@ class MainWindow(QMainWindow):
         splitter.addWidget(self.tabs)
         splitter.setStretchFactor(1, 5)
 
-        # 👇 اینجا wrapper layout
         container = QWidget()
         layout = QVBoxLayout(container)
 
-        layout.addWidget(splitter)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+
+        layout.addWidget(splitter, stretch=1)
 
         self.author_label = QLabel("Author: Telegram: @Alireza_koh1")
         self.author_label.setStyleSheet("""
@@ -405,16 +409,11 @@ class MainWindow(QMainWindow):
             font-size: 10px;
             padding: 6px;
         """)
+        self.author_label.setAlignment(Qt.AlignRight)  # 👈 مهم
 
-        layout.addWidget(self.author_label)
+        layout.addWidget(self.author_label, stretch=0)
 
         self.setCentralWidget(container)
-
-        self.load_files()
-
-        self.file_list.itemDoubleClicked.connect(
-            self.open_selected_file
-        )
     # -----------------------------
 
     def load_files(self):
