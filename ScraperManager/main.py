@@ -393,13 +393,12 @@ class MainWindow(QMainWindow):
         splitter.addWidget(self.tabs)
         splitter.setStretchFactor(1, 5)
 
-        self.setCentralWidget(splitter)
+        # 👇 اینجا wrapper layout
+        container = QWidget()
+        layout = QVBoxLayout(container)
 
-        self.load_files()
+        layout.addWidget(splitter)
 
-        self.file_list.itemDoubleClicked.connect(
-            self.open_selected_file
-        )
         self.author_label = QLabel("Author: Telegram: @Alireza_koh1")
         self.author_label.setStyleSheet("""
             color: #666;
@@ -407,6 +406,15 @@ class MainWindow(QMainWindow):
             padding: 6px;
         """)
 
+        layout.addWidget(self.author_label)
+
+        self.setCentralWidget(container)
+
+        self.load_files()
+
+        self.file_list.itemDoubleClicked.connect(
+            self.open_selected_file
+        )
     # -----------------------------
 
     def load_files(self):
