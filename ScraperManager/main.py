@@ -395,6 +395,7 @@ class MainWindow(QMainWindow):
         splitter.addWidget(self.tabs)
         splitter.setStretchFactor(1, 5)
 
+        # wrapper اصلی
         container = QWidget()
         layout = QVBoxLayout(container)
 
@@ -403,17 +404,22 @@ class MainWindow(QMainWindow):
 
         layout.addWidget(splitter, stretch=1)
 
+        # footer (اسم سازنده)
         self.author_label = QLabel("Author: Telegram: @Alireza_koh1")
         self.author_label.setStyleSheet("""
             color: #666;
             font-size: 10px;
             padding: 6px;
         """)
-        self.author_label.setAlignment(Qt.AlignRight)  # 👈 مهم
+        self.author_label.setAlignment(Qt.AlignRight)
 
         layout.addWidget(self.author_label, stretch=0)
 
         self.setCentralWidget(container)
+
+        # 👇 مهم: این دو خط حتما باید باشند
+        self.load_files()
+        self.file_list.itemDoubleClicked.connect(self.open_selected_file)
     # -----------------------------
 
     def load_files(self):
